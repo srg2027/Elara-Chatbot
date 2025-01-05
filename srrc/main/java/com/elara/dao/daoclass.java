@@ -36,7 +36,7 @@ public class daoclass {
     }
 
     // Insert a new ElaraUser
-    public void insertUser(ElaraUser user) throws SQLException {
+    public void insertUser(daoclass user) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
             preparedStatement.setString(1, user.getSessionId());
@@ -64,8 +64,8 @@ public class daoclass {
 	}
 
 	// Select a user by ID
-    public ElaraUser selectUser(String customerId) {
-        ElaraUser user = null;
+    public daoclass selectUser(String customerId) {
+        daoclass user = null;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
             preparedStatement.setString(1, customerId);
@@ -74,7 +74,7 @@ public class daoclass {
             if (rs.next()) {
                 String sessionId = rs.getString("sessionId");
                 String status = rs.getString("status");
-                user = new ElaraUser();
+                user = new daoclass();
                 user.setStatus(status);
             }
         } catch (SQLException e) {
@@ -84,8 +84,8 @@ public class daoclass {
     }
 
     // Select all users
-    public List<ElaraUser> selectAllUsers() {
-        List<ElaraUser> users = new ArrayList<>();
+    public List<daoclass> selectAllUsers() {
+        List<daoclass> users = new ArrayList<>();
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
             ResultSet rs = preparedStatement.executeQuery();
@@ -93,7 +93,7 @@ public class daoclass {
             while (rs.next()) {
                 String customerId = rs.getString("customerId");
                 String status = rs.getString("status");
-                ElaraUser user = new ElaraUser();
+                daoclass user = new daoclass();
                 user.setStatus(status);
                 users.add(user);
             }
@@ -109,7 +109,7 @@ public class daoclass {
 	}
 
 	// Update user's status
-    public boolean updateUser(ElaraUser user) throws SQLException {
+    public boolean updateUser(daoclass user) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL)) {
